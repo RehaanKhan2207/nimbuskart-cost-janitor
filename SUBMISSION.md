@@ -12,14 +12,13 @@
 - [x] Part B: GitHub Actions workflow runs green on a fresh PR
 - [x] Part B: --delete mode respects Protected=true tag
 - [x] Part C: DESIGN.md is present and within 2 pages
-- [ ] Walkthrough video link below is accessible (unlisted is fine)
+- [x] Walkthrough video link below is accessible
 
 ## Walkthrough video
-Link (Loom / YouTube unlisted / Google Drive): PENDING_VIDEO_LINK
-Length: max 5 minutes
+https://drive.google.com/file/d/1k8Wq1Ib1eQBHQvY2vYq6FHfLUAt7y-vo/view?usp=drivesdk
 
 ## Sample report
-Path to a sample report.json produced by your script: samples/report.example.json
+Path to a sample report.json produced by our script: samples/report.example.json
 
 ## Known limitations
 * The script runs against fixed pricing constants instead of hitting the live AWS Price List API.
