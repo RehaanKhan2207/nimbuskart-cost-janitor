@@ -1,0 +1,74 @@
+name: Multi-Cloud Cost Janitor CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  cost-hygiene:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-numeric-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          pip install terraform-local boto3
+          if [ -f janitor/requirements.txt ]; then pip install -r janitor/requirements.txt; fi
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Start LocalStack
+        run: |
+          docker run --rm -d -p 4566:4566 --name localstack localstack/localstack:latest
+          # Wait for LocalStack to be ready
+          id=0
+          until curl -s http://localhost:4566/_localstack/health | grep -q '"tf": "available"'; do
+            echo "Waiting for LocalStack..."
+            sleep 2
+            id=$((id+1))
+            if [ $id -gt 15 ]; then break; fi
+          done
+
+      - name: Deploy Infrastructure (Part A)
+        run: |
+          tflocal init
+          tflocal apply -auto-approve
+
+      - name: Run Cost Janitor Dry-Run (Part B)
+        id: janitor
+        continue-on-error: true
+        run: |
+          python janitor.py --dry-run
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: cost-janitor-reports
+          path: |
+            report.json
+            report.md
+
+      - name: Post PR Comment
+        if: github.event_name == 'pull_request' && steps.janitor.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            if (fs.existsSync('report.md')) {
+              const body = fs.readFileSync('report.md', 'utf8');
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: body
+              });
+            }
