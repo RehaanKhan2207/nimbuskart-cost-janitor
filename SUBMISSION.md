@@ -1,7 +1,7 @@
 # Submission — DevOps Engineer Assignment
 
-**Candidate name:** Rey
-**Email:** rey@example.com
+**Candidate name:** Rehaan Khan
+**Email:** rehaankhan2207@gmail.com
 **Date submitted:** 2026-05-23
 **Hours spent (approximate):** 8 hours
 
