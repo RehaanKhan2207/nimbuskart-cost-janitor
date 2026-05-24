@@ -1,0 +1,47 @@
+{
+  "scan_timestamp": "2026-05-23T16:52:44.770435Z",
+  "account_id": "000000000000",
+  "region": "us-east-1",
+  "summary": {
+    "total_orphans": 3,
+    "estimated_monthly_waste_usd": 0.8
+  },
+  "findings": [
+    {
+      "resource_id": "vol-a11bec30",
+      "resource_type": "ebs_volume",
+      "reason": "unattached",
+      "age_days": 14,
+      "estimated_monthly_cost_usd": 0.8,
+      "tags": {
+        "Project": "NimbusKart",
+        "Name": "staging-orphaned-disk",
+        "Owner": "Engineering",
+        "ManagedBy": "terraform",
+        "Environment": "staging"
+      },
+      "suggested_action": "delete",
+      "safe_to_auto_delete": true
+    },
+    {
+      "resource_id": "vol-244fa890",
+      "resource_type": "ebs_volume",
+      "reason": "missing_tags",
+      "age_days": 14,
+      "estimated_monthly_cost_usd": 0.0,
+      "tags": {},
+      "suggested_action": "delete",
+      "safe_to_auto_delete": false
+    },
+    {
+      "resource_id": "vol-4eeeca1b",
+      "resource_type": "ebs_volume",
+      "reason": "missing_tags",
+      "age_days": 14,
+      "estimated_monthly_cost_usd": 0.0,
+      "tags": {},
+      "suggested_action": "delete",
+      "safe_to_auto_delete": false
+    }
+  ]
+}

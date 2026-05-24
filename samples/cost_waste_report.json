@@ -1,0 +1,38 @@
+{
+  "audit_timestamp": "2026-05-23T16:37:04.866450+00:00",
+  "target_environment": "staging",
+  "total_estimated_monthly_waste_usd": 0.8,
+  "waste_resources_found": 3,
+  "detected_waste": [
+    {
+      "resource_id": "vol-eee1b0ad",
+      "resource_type": "EBS_Volume",
+      "status": "available",
+      "reason": "Unattached volume",
+      "estimated_monthly_waste_usd": 0.8,
+      "tags": {
+        "Name": "staging-orphaned-disk",
+        "Owner": "Engineering",
+        "Environment": "staging",
+        "Project": "NimbusKart",
+        "ManagedBy": "terraform"
+      }
+    },
+    {
+      "resource_id": "vol-fe903210",
+      "resource_type": "EBS_Volume",
+      "status": "in-use",
+      "reason": "Missing mandatory tags",
+      "estimated_monthly_waste_usd": 0.0,
+      "tags": {}
+    },
+    {
+      "resource_id": "vol-febf6927",
+      "resource_type": "EBS_Volume",
+      "status": "in-use",
+      "reason": "Missing mandatory tags",
+      "estimated_monthly_waste_usd": 0.0,
+      "tags": {}
+    }
+  ]
+}
